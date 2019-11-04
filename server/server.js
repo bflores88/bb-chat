@@ -15,7 +15,7 @@ const chatroomManager = ChatroomManager();
 
 const app = express();
 const server = http.Server(app);
-const io = websocket(server);
+const io = websocket.listen(server);
 const port = process.env.EXPRESS_HOST_PORT;
 
 app.set('json spaces', 2);

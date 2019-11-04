@@ -1,16 +1,21 @@
 import { hot } from 'react-hot-loader/root';
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
-import Home from './containers/Home/Home';
+import socket from './services/socket';
 
 class App extends Component {
+	state = {
+		user: null,
+		isRegisterInProces: false,
+		client: socket(),
+		chatrooms: null,
+	};
+
 	render() {
 		return (
 			<>
-				<Switch>
-					<Route exact path="/" component={Home} />
-				</Switch>
+				<Switch></Switch>
 			</>
 		);
 	}

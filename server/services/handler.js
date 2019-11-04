@@ -88,7 +88,7 @@ export default function(client, clientManager, chatroomManager) {
 		return callback(null, chatroomManager.serializeChatrooms());
 	}
 
-	function handelGetAvailableUsers(_, callback) {
+	function handleGetAvailableUsers(_, callback) {
 		return callback(null, clientManager.getAvailableUsers());
 	}
 

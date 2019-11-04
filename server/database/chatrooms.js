@@ -1,4 +1,4 @@
-export default chatrooms = [
+export default [
 	{
 		id: 1,
 		name: "Bob's Burgers",

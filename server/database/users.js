@@ -1,4 +1,4 @@
-export default users = [
+export default [
 	{
 		id: 1,
 		username: 'Mervin Reagan',
