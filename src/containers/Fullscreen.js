@@ -7,4 +7,5 @@ export default styled.div`
 	bottom: 0;
 	right: 0;
 	font-family: 'Roboto', sans-serif;
+	width: 100%;
 `;

@@ -7,6 +7,6 @@ export default [
 	{
 		id: 2,
 		name: 'Paradise',
-		image: 'https://bit.ly/2PErhJJ',
+		image: 'https://bit.ly/2r9akwN',
 	},
 ];
