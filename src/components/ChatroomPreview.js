@@ -27,7 +27,7 @@ const chatroomPreview = (props) => {
 
 	return (
 		<Paper style={{ maxWidth: 500, marginBottom: 20 }}>
-			<Wrapper>
+			<Wrapper onClick={onEnter}>
 				<Card>
 					<CardActionArea>
 						<CardMedia //

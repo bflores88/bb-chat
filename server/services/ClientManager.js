@@ -19,18 +19,18 @@ export default function() {
 		const usersTaken = new Set(
 			Array.from(clients.values())
 				.filter((c) => c.user)
-				.map((c) => c.user.name),
+				.map((c) => c.user.username),
 		);
 
-		return userTemplates.filter((u) => !usersTaken.has(u.name));
+		return userTemplates.filter((u) => !usersTaken.has(u.username));
 	}
 
 	function isUserAvailable(userName) {
-		return getAvailableUsers().some((u) => u.name === userName);
+		return getAvailableUsers().some((u) => u.username === userName);
 	}
 
 	function getUserByName(userName) {
-		return userTemplates.find((u) => u.name === userName);
+		return userTemplates.find((u) => u.username === userName);
 	}
 
 	function getUserByClientId(clientId) {

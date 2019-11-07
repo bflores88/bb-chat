@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
+import Loader from '../components/Loader';
 
 import ChatroomPreview from './ChatroomPreview';
 
@@ -10,16 +11,16 @@ const Wrapper = styled.div`
 		width: 600px;
 	}
 `;
-
 const home = (props) => {
-	const chatrooms = props.chatrooms;
-	const onEnterChatroom = props.onEnterChatroom;
+	let homeContent = <Loader />;
 
-	let homeContent = null;
-
-	if (chatrooms) {
-		homeContent = chatrooms.map((c) => (
-			<ChatroomPreview key={c.name} chatroom={c} onEnter={() => onEnterChatroom(c.name)} />
+	if (props.chatrooms) {
+		homeContent = props.chatrooms.map((c) => (
+			<ChatroomPreview //
+				key={c.name}
+				chatroom={c}
+				onEnter={() => props.onEnterChatroom(c.name)}
+			/>
 		));
 	}
 

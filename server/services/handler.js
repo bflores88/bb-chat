@@ -1,18 +1,18 @@
-function makeHandleEvent(client, chatroomManager, clientManager) {
+function makeHandleEvent(client, clientManager, chatroomManager) {
 	function checkExistence(getter, rejectMessage) {
-		return async function(getter) {
-			let res = await getter();
-
-			return res ? res : rejectMessage;
-		};
+		let res = getter();
+		return res;
 	}
 
 	function checkUserSelected(clientId) {
-		return checkExistence(clientManager.getUserByClientId(clientId), 'select user first');
+		return checkExistence(() => clientManager.getUserByClientId(clientId), 'select user first');
 	}
 
 	function checkValidChatroom(chatroomName) {
-		return checkExistence(chatroomManager.getChatroomByName(chatroomName), `invalid chatroom name: ${chatroomName}`);
+		return checkExistence(
+			() => chatroomManager.getChatroomByName(chatroomName),
+			`invalid chatroom name: ${chatroomName}`,
+		);
 	}
 
 	function checkValidChatroomAndUserSelected(chatroomName) {
@@ -21,7 +21,7 @@ function makeHandleEvent(client, chatroomManager, clientManager) {
 		);
 	}
 
-	function handleEvent(chatroomName, createEntry) {
+	async function handleEvent(chatroomName, createEntry) {
 		return checkValidChatroomAndUserSelected(chatroomName).then(({ chatroom, user }) => {
 			// append event to chat history
 			const entry = { user, ...createEntry() };
@@ -36,7 +36,7 @@ function makeHandleEvent(client, chatroomManager, clientManager) {
 	return handleEvent;
 }
 
-export default function(client, clientManager, chatroomManager) {
+export default (client, clientManager, chatroomManager) => {
 	const handleEvent = makeHandleEvent(client, clientManager, chatroomManager);
 
 	function handleRegister(userName, callback) {
@@ -47,17 +47,17 @@ export default function(client, clientManager, chatroomManager) {
 		const user = clientManager.getUserByName(userName);
 		clientManager.registerClient(client, user);
 
-		return callback('null', user);
+		return callback(null, user);
 	}
 
 	function handleJoin(chatroomName, callback) {
 		const createEntry = () => ({ event: `joined ${chatroomName}` });
-
+		console.log(chatroomName);
 		handleEvent(chatroomName, createEntry)
 			.then((chatroom) => {
 				// add member to chatroom
 				chatroom.addUser(client);
-
+				console.log('user added to chatroom');
 				return callback(null);
 			})
 			.catch(callback);
@@ -71,7 +71,8 @@ export default function(client, clientManager, chatroomManager) {
 				// remove member from chatroom
 				chatroom.removeUser(client.id);
 
-				return callback(null);
+				// send chat history to client
+				return callback(null), chatroom.getChatHistory();
 			})
 			.catch(callback);
 	}
@@ -109,4 +110,4 @@ export default function(client, clientManager, chatroomManager) {
 		handleGetAvailableUsers,
 		handleDisconnect,
 	};
-}
+};

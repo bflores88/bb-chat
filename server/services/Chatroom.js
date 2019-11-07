@@ -11,7 +11,7 @@ export default function({ name, image }) {
 	}
 
 	function getChatHistory() {
-		return chatHistory;
+		return chatHistory.slice();
 	}
 
 	function addUser(client) {

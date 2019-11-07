@@ -10,8 +10,8 @@ const styles = makeStyles({
 	},
 	bigAvatar: {
 		margin: 10,
-		width: 60,
-		height: 60,
+		width: 120,
+		height: 120,
 	},
 });
 
@@ -42,7 +42,7 @@ const avatar = ({ user }) => {
 				children: <PersonIcon />,
 		  };
 
-	let username = user ? `$user.username` : 'Who are you?';
+	let username = user ? `${user.username}` : 'Who are you?';
 
 	return (
 		<AvatarWrapper>
