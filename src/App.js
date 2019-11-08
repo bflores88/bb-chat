@@ -34,7 +34,18 @@ class App extends Component {
 				return console.error(err);
 			}
 
+			console.log(chatHistory);
+
 			return onEnterSuccess(chatHistory);
+		});
+	};
+
+	onLeaveChatroom = (chatroomName, onLeaveSuccess) => {
+		this.state.client.leave(chatroomName, (err) => {
+			if (err) {
+				return console.error(err);
+			}
+			return onLeaveSuccess();
 		});
 	};
 
@@ -58,7 +69,23 @@ class App extends Component {
 		console.log(this.state);
 		if (this.state.chatrooms) {
 			chatroomRoutes = this.state.chatrooms.map((r) => {
-				return <Route key={r.name} path={`/${r.name}`} component={() => <Chatroom user={this.state.user} />} />;
+				return (
+					<Route
+						key={r.name}
+						path={`/${r.name}`}
+						component={(props) => (
+							<Chatroom
+								user={this.state.user}
+								chatroom={r}
+								onLeave={(() => this.onLeaveChatroom(r.name), () => this.props.history.push('/'))}
+								registerHandler={this.state.client.registerHandler}
+								unregisterHandler={this.state.client.unregisterHandler}
+								onSendMessage={(message, cb) => this.state.client.message(r.name, message, cb)}
+								{...props}
+							/>
+						)}
+					/>
+				);
 			});
 		}
 

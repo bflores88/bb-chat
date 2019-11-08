@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import PersonIcon from '@material-ui/icons/Person';
+import { Link } from 'react-router-dom';
 
 const styles = makeStyles({
 	avatar: {
@@ -33,22 +34,32 @@ const Username = styled.p`
 	margin: 0;
 `;
 
-const avatar = ({ user }) => {
+const avatar = (props) => {
 	const classes = styles();
 
-	let iconImage = user
-		? { src: user.image }
+	let iconImage = props.user
+		? { src: props.user.image }
 		: {
-				children: <PersonIcon />,
+				children: <PersonIcon size="large" />,
 		  };
 
-	let username = user ? `${user.username}` : 'Who are you?';
+	let username = props.user ? `${props.user.username}` : 'Who are you?';
 
-	return (
+	let completeAvatar = (
 		<AvatarWrapper>
 			<Avatar className={classes.bigAvatar} {...iconImage} />
 			<Username>{username}</Username>
 		</AvatarWrapper>
 	);
+
+	if (!props.user) {
+		completeAvatar = (
+			<Link to="/user" style={{ textDecoration: 'none' }}>
+				{completeAvatar}
+			</Link>
+		);
+	}
+
+	return completeAvatar;
 };
 export default avatar;
