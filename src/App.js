@@ -45,6 +45,7 @@ class App extends Component {
 			if (err) {
 				return console.error(err);
 			}
+			console.log('left chatroom');
 			return onLeaveSuccess();
 		});
 	};
@@ -77,7 +78,8 @@ class App extends Component {
 							<Chatroom
 								user={this.state.user}
 								chatroom={r}
-								onLeave={(() => this.onLeaveChatroom(r.name), () => this.props.history.push('/'))}
+								onExitPage={() => this.onLeaveChatroom(r.name, () => true)}
+								onLeave={() => this.props.history.push('/')}
 								registerHandler={this.state.client.registerHandler}
 								unregisterHandler={this.state.client.unregisterHandler}
 								onSendMessage={(message, cb) => this.state.client.message(r.name, message, cb)}

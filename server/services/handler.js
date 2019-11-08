@@ -64,7 +64,7 @@ export default (client, clientManager, chatroomManager) => {
 
 				// send chat history to client
 				const chatHistory = chatroom.getChatHistory();
-				console.log(chatHistory);
+
 				return callback(null, chatHistory);
 			})
 			.catch(callback);
@@ -76,9 +76,9 @@ export default (client, clientManager, chatroomManager) => {
 		handleEvent(chatroomName, createEntry)
 			.then((chatroom) => {
 				// remove member from chatroom
-				chatroom.removeUser(client.id);
+    chatroom.removeUser(client.id);
+    console.log(createEntry)
 
-				// send chat history to client
 				return callback(null);
 			})
 			.catch(callback);

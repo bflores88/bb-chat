@@ -11,6 +11,7 @@ import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Loader from '../components/Loader';
 import Button from '@material-ui/core/Button';
+import { flexbox } from '@material-ui/system';
 
 const ChatWindow = styled.div`
 	width: 40vw;
@@ -39,11 +40,16 @@ const InputWrapper = styled.div`
 `;
 
 class Chatroom extends Component {
-	state = {
-		chatHistory: [],
-		input: '',
-		user: null,
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			chatHistory: [],
+			input: '',
+			user: null,
+		};
+
+		this.chatEndRef = React.createRef();
+	}
 
 	componentDidMount() {
 		this.props.registerHandler(this.onMessageReceived);
@@ -53,8 +59,14 @@ class Chatroom extends Component {
 		});
 	}
 
+	componentDidUpdate() {
+		this.scrollToChatEnd();
+	}
+
 	componentWillUnmount() {
+		console.log('component will uncount called');
 		this.props.unregisterHandler();
+		this.props.onExitPage();
 	}
 
 	handleChange = (event) => {
@@ -84,44 +96,52 @@ class Chatroom extends Component {
 		return this.setState({ input: '' });
 	};
 
-	renderMessages = () => {
-		const messages = this.state.chatHistory.map((msg) => {});
+	onLeaveChatroom = () => {
+		console.log('leaving chat');
+		this.props.onLeave();
 	};
+
+	scrollToChatEnd() {
+		this.chatEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	}
 
 	render() {
 		console.log(this.props);
 		console.log('chat history', this.props);
 		console.log(this.state);
 
-		const renderActivity = this.state.chatHistory.map((event, idx) => {
-			let listText = null;
+		const renderActivity =
+			this.state.chatHistory.length === 0
+				? null
+				: this.state.chatHistory.map((event, idx) => {
+						let listText = null;
 
-			if (event.event) {
-				listText = <ListItemText secondary={`${event.user.username} ${event.event}`} />;
-			} else {
-				listText = <ListItemText primary={event.user.username} secondary={event.message} />;
-			}
+						if (event.event) {
+							listText = <ListItemText secondary={`${event.user.username} ${event.event}`} />;
+						} else {
+							listText = <ListItemText primary={event.message} />;
+						}
 
-			if (event.user.username === this.state.user.username) {
-				return (
-					<ListItem key={idx} style={{ textAlign: 'right' }}>
-						{listText}
-						<ListItemAvatar style={{ marginLeft: '10px' }}>
-							<Avatar src={event.user.image} />
-						</ListItemAvatar>
-					</ListItem>
-				);
-			} else {
-				return (
-					<ListItem key={idx}>
-						<ListItemAvatar>
-							<Avatar src={event.user.image} />
-						</ListItemAvatar>
-						{listText}
-					</ListItem>
-				);
-			}
-		});
+						if (event.user.username === this.state.user.username) {
+							return (
+								<ListItem key={idx} style={{ textAlign: 'right' }}>
+									{listText}
+									<ListItemAvatar style={{ marginLeft: '10px' }}>
+										<Avatar src={event.user.image} />
+									</ListItemAvatar>
+								</ListItem>
+							);
+						} else {
+							return (
+								<ListItem key={idx}>
+									<ListItemAvatar>
+										<Avatar src={event.user.image} />
+									</ListItemAvatar>
+									{listText}
+								</ListItem>
+							);
+						}
+				  });
 
 		return (
 			<React.Fragment>
@@ -129,7 +149,7 @@ class Chatroom extends Component {
 				<ChatWindow>
 					<ChatHeader>
 						{this.props.chatroom.name}
-						<IconButton color="secondary">
+						<IconButton color="secondary" onClick={this.onLeaveChatroom}>
 							<CloseIcon />
 						</IconButton>
 					</ChatHeader>
@@ -144,6 +164,7 @@ class Chatroom extends Component {
 						}}
 					>
 						{renderActivity}
+						<div ref={this.chatEndRef} />
 					</List>
 					<InputWrapper>
 						<TextField
