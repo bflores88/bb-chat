@@ -6,9 +6,9 @@ import socket from './services/socket';
 
 import Avatar from './components/Avatar';
 import Main from './containers/Main';
-import Home from './components/Home';
-import Chatroom from './containers/Chatroom';
-import UserSelection from './containers/UserSelection';
+import Home from './pages/Home';
+import Chatroom from './pages/Chatroom';
+import UserSelection from './pages/UserSelection';
 
 class App extends Component {
 	state = {

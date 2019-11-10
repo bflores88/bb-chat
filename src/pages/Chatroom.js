@@ -9,9 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
-import Loader from '../components/Loader';
 import Button from '@material-ui/core/Button';
-import { flexbox } from '@material-ui/system';
 
 const ChatWindow = styled.div`
 	width: 40vw;

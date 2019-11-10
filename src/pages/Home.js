@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Loader from '../components/Loader';
 
-import ChatroomPreview from './ChatroomPreview';
+import ChatroomPreview from '../components/ChatroomPreview';
 
 const Wrapper = styled.div`
 	width: 300px;
