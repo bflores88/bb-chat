@@ -6,11 +6,19 @@ import ChatroomPreview from '../components/ChatroomPreview';
 
 const Wrapper = styled.div`
 	width: 300px;
+	height: 90vh;
+	overflow: scroll;
+
+	::-webkit-scrollbar {
+		width: 0px; /* Remove scrollbar space */
+		background: transparent; /* Optional: just make scrollbar invisible */
+	}
 
 	@media (min-width: 576px) {
 		width: 600px;
 	}
 `;
+
 const home = (props) => {
 	let homeContent = <Loader />;
 

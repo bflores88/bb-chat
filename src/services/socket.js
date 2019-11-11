@@ -1,8 +1,6 @@
 import io from 'socket.io-client';
-require('dotenv').config();
 
 export default function() {
-	// console.log(process.env.REACT_APP_WEBSOCKET_CONNECT);
 	const socket = io.connect(`http://localhost:8080`);
 
 	function registerHandler(onMessageReceived) {

@@ -29,7 +29,6 @@ function makeHandleEvent(client, clientManager, chatroomManager) {
 		return checkValidChatroomAndUserSelected(chatroomName).then(function({ chatroom, user }) {
 			// append event to chat history
 			const entry = { user, ...createEntry };
-			console.log(entry);
 			chatroom.addEntry(entry);
 
 			// notify other clients in the chatroom
@@ -76,9 +75,7 @@ export default (client, clientManager, chatroomManager) => {
 		handleEvent(chatroomName, createEntry)
 			.then((chatroom) => {
 				// remove member from chatroom
-    chatroom.removeUser(client.id);
-    console.log(createEntry)
-
+				chatroom.removeUser(client.id);
 				return callback(null);
 			})
 			.catch(callback);

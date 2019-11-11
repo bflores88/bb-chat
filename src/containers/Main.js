@@ -8,6 +8,8 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
+	background-color: rgba(255, 255, 255, 0.4);
+	height: -webkit-fill-available;
 `;
 
 class Main extends React.Component {

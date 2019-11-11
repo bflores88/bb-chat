@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = makeStyles({
 	media: {
-		height: 140,
+		height: 250,
 	},
 	pos: {
 		margin: 5,
@@ -26,7 +26,7 @@ const chatroomPreview = (props) => {
 	const classes = styles();
 
 	return (
-		<Paper style={{ maxWidth: 500, marginBottom: 20 }}>
+		<Paper style={{ maxWidth: 600, marginBottom: 20 }}>
 			<Wrapper onClick={onEnter}>
 				<Card>
 					<CardActionArea>

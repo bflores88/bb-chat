@@ -8,11 +8,14 @@ import { Link } from 'react-router-dom';
 const styles = makeStyles({
 	avatar: {
 		margin: 10,
+		width: 80,
+		height: 80,
 	},
 	bigAvatar: {
 		margin: 10,
 		width: 120,
 		height: 120,
+		backgroundColor: '#fcdd60',
 	},
 });
 
@@ -22,6 +25,7 @@ const AvatarWrapper = styled.div`
 	max-width: 150px;
 	flex-direction: column;
 	align-items: center;
+	z-index: 10;
 	a {
 		text-decoration: none;
 	}
@@ -30,7 +34,7 @@ const AvatarWrapper = styled.div`
 const Username = styled.p`
 	font-size: 24px;
 	text-align: center;
-	color: #ccc;
+	color: #fcdd60;
 	margin: 0;
 `;
 
@@ -40,7 +44,7 @@ const avatar = (props) => {
 	let iconImage = props.user
 		? { src: props.user.image }
 		: {
-				children: <PersonIcon size="large" />,
+				children: <PersonIcon className={classes.avatar} size="large" />,
 		  };
 
 	let username = props.user ? `${props.user.username}` : 'Who are you?';

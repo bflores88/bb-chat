@@ -1,6 +1,6 @@
 import { hot } from 'react-hot-loader/root';
 import React, { Component } from 'react';
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 
 import socket from './services/socket';
 
@@ -34,8 +34,6 @@ class App extends Component {
 				return console.error(err);
 			}
 
-			console.log(chatHistory);
-
 			return onEnterSuccess(chatHistory);
 		});
 	};
@@ -45,7 +43,7 @@ class App extends Component {
 			if (err) {
 				return console.error(err);
 			}
-			console.log('left chatroom');
+
 			return onLeaveSuccess();
 		});
 	};
@@ -67,7 +65,7 @@ class App extends Component {
 
 	render() {
 		let chatroomRoutes = null;
-		console.log(this.state);
+
 		if (this.state.chatrooms) {
 			chatroomRoutes = this.state.chatrooms.map((r) => {
 				return (

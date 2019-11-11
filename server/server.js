@@ -1,9 +1,6 @@
 import express from 'express';
 import http from 'http';
 import bodyParser from 'body-parser';
-import methodOverride from 'method-override';
-import dotenv from 'dotenv';
-dotenv.config();
 import websocket from 'socket.io';
 
 import ClientManager from './services/ClientManager';
@@ -16,10 +13,8 @@ const chatroomManager = ChatroomManager();
 const app = express();
 const server = http.Server(app);
 const io = websocket.listen(server);
-const port = process.env.EXPRESS_HOST_PORT;
+const port = 8080;
 
-app.set('json spaces', 2);
-app.use(methodOverride('_method'));
 app.use(express.static('../public'));
 
 app.use(

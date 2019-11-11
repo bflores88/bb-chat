@@ -2,11 +2,16 @@ export default [
 	{
 		id: 1,
 		name: "Bob's Burgers",
-		image: 'https://bit.ly/2qj8vgE',
+		image: 'assets/chatrooms/restaurant.png',
 	},
 	{
 		id: 2,
-		name: 'Paradise',
-		image: 'https://bit.ly/2r9akwN',
+		name: 'Wonder Wharf',
+		image: 'assets/chatrooms/wonderWharf.jpg',
+	},
+	{
+		id: 3,
+		name: 'Wagstaff School',
+		image: 'assets/chatrooms/wagstaff.jpg',
 	},
 ];

@@ -15,7 +15,7 @@ const ChatWindow = styled.div`
 	width: 40vw;
 	min-width: 200px;
 	max-width: 800px;
-	background-color: rgba(211, 211, 211, 0.2);
+	background-color: rgb(255, 255, 255);
 	padding: 20px;
 	border-radius: 18px;
 	height: 60vh;
@@ -62,14 +62,12 @@ class Chatroom extends Component {
 	}
 
 	componentWillUnmount() {
-		console.log('component will uncount called');
 		this.props.unregisterHandler();
 		this.props.onExitPage();
 	}
 
 	handleChange = (event) => {
 		this.setState({ input: event.target.value });
-		console.log(this.state.input);
 	};
 
 	updateChatHistory = (entry) => {
@@ -95,7 +93,6 @@ class Chatroom extends Component {
 	};
 
 	onLeaveChatroom = () => {
-		console.log('leaving chat');
 		this.props.onLeave();
 	};
 
@@ -104,10 +101,6 @@ class Chatroom extends Component {
 	}
 
 	render() {
-		console.log(this.props);
-		console.log('chat history', this.props);
-		console.log(this.state);
-
 		const renderActivity =
 			this.state.chatHistory.length === 0
 				? null
@@ -151,19 +144,30 @@ class Chatroom extends Component {
 							<CloseIcon />
 						</IconButton>
 					</ChatHeader>
-					<List
+					<div
 						style={{
+							backgroundImage: `linear-gradient(to left, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url("${this.props.chatroom.image}")`,
+							backgroundSize: 'cover',
+							backgroundRepeat: 'no-repeat',
+							backgroundPosition: 'center',
 							height: '75%',
-							border: '1px solid #ccc',
 							borderRadius: '6px',
 							marginTop: '10px',
-							padding: '10px',
-							overflow: 'auto',
 						}}
 					>
-						{renderActivity}
-						<div ref={this.chatEndRef} />
-					</List>
+						<List
+							style={{
+								height: '100%',
+								padding: '10px',
+								overflow: 'auto',
+								backgroundColor: 'rgba(255, 255, 255, .7)',
+							}}
+						>
+							{renderActivity}
+							<div ref={this.chatEndRef} />
+						</List>
+					</div>
+
 					<InputWrapper>
 						<TextField
 							onChange={this.handleChange}
